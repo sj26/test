@@ -1,0 +1,28 @@
+steps:
+  - trigger: test
+    build:
+      branch: command
+  - trigger: test
+    build:
+      branch: script
+  - trigger: test
+    build:
+      branch: hook-command
+  - trigger: test
+    build:
+      branch: submodule-command
+  - trigger: test
+    build:
+      branch: submodule-script
+  - trigger: test
+    build:
+      branch: docker-command
+  - trigger: test
+    build:
+      branch: docker-script
+  - trigger: test
+    build:
+      branch: docker-compose-command
+  - trigger: test
+    build:
+      branch: docker-compose-script
