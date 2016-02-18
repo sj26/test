@@ -1,0 +1,28 @@
+steps:
+  - trigger: $BUILDKITE_PIPELINE_SLUG
+    build:
+      branch: command
+  - trigger: $BUILDKITE_PIPELINE_SLUG
+    build:
+      branch: script
+  - trigger: $BUILDKITE_PIPELINE_SLUG
+    build:
+      branch: hook-command
+  - trigger: $BUILDKITE_PIPELINE_SLUG
+    build:
+      branch: submodule-command
+  - trigger: $BUILDKITE_PIPELINE_SLUG
+    build:
+      branch: submodule-script
+  - trigger: $BUILDKITE_PIPELINE_SLUG
+    build:
+      branch: docker-command
+  - trigger: $BUILDKITE_PIPELINE_SLUG
+    build:
+      branch: docker-script
+  - trigger: $BUILDKITE_PIPELINE_SLUG
+    build:
+      branch: docker-compose-command
+  - trigger: $BUILDKITE_PIPELINE_SLUG
+    build:
+      branch: docker-compose-script
