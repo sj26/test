@@ -1,0 +1,4 @@
+steps:
+  - label: ":console:"
+    command: |
+      cat message
