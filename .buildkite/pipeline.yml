@@ -1,0 +1,5 @@
+steps:
+  - name: ":docker:"
+    command: command
+    env:
+      BUILDKITE_DOCKER: "true"
