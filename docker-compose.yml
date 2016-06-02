@@ -1,0 +1,17 @@
+version: "2"
+services:
+  db:
+    image: postgres
+  redis:
+    image: redis
+  app:
+    build: .
+    volumes:
+      - .:/app
+    depends_on:
+      - db
+      - redis
+    environment:
+      PGHOST: db
+      PGUSER: postgres
+      REDIS_URL: redis://redis
