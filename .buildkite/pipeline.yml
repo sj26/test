@@ -1,0 +1,6 @@
+steps:
+  - name: ":docker:"
+    command: |
+      cat message
+    env:
+      BUILDKITE_DOCKER: "true"
