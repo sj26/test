@@ -1,0 +1,6 @@
+steps:
+  - name: ":docker:"
+    command: ./command foo
+    plugins:
+      docker-compose#less-eval:
+        build: app
