@@ -1,0 +1,6 @@
+steps:
+  - name: ":docker:"
+    command: command
+    env:
+      BUILDKITE_DOCKER_COMPOSE_FILE: "docker-compose.yml:docker-compose.buildkite.yml"
+      BUILDKITE_DOCKER_COMPOSE_CONTAINER: "app"
