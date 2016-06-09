@@ -1,5 +1,6 @@
 steps:
   - name: ":docker:"
     command: command
-    env:
-      BUILDKITE_DOCKER_COMPOSE_CONTAINER: "app"
+    plugins:
+      "https://github.com/buildkite/docker-compose-buildkite-plugin.git":
+        run: app
