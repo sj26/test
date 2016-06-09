@@ -1,0 +1,4 @@
+steps:
+  - label: ":git: :console:"
+    command: |
+      cat submodule/message
