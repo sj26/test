@@ -1,0 +1,4 @@
+[submodule "submodule"]
+	path = submodule
+	url = git://github.com/sj26/test.git
+	branch = command

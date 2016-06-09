@@ -1,0 +1,3 @@
+steps:
+  - label: ":git: :console:"
+    command: submodule/command
