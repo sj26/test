@@ -1,0 +1,5 @@
+steps:
+  - command: echo hello world
+    plugins:
+      "file://.buildkite/plugins/test":
+        foo: bar

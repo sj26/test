@@ -1,0 +1,4 @@
+#!/bin/bash
+
+echo some pre command
+echo $BUILDKITE_PLUGIN_TEST_FOO
