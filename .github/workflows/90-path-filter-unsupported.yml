@@ -1,0 +1,14 @@
+name: 90 E2E unsupported path filter
+
+on:
+  push:
+    branches:
+      - gha-e2e-paths
+    paths:
+      - matched/**
+
+jobs:
+  evidence:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "The trigger matcher should reject this path filter before creating a build."

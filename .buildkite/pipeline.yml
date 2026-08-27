@@ -1,28 +1,13 @@
 steps:
-  - trigger: $BUILDKITE_PIPELINE_SLUG
-    build:
-      branch: command
-  - trigger: $BUILDKITE_PIPELINE_SLUG
-    build:
-      branch: script
-  - trigger: $BUILDKITE_PIPELINE_SLUG
-    build:
-      branch: hook-command
-  - trigger: $BUILDKITE_PIPELINE_SLUG
-    build:
-      branch: submodule-command
-  - trigger: $BUILDKITE_PIPELINE_SLUG
-    build:
-      branch: submodule-script
-  - trigger: $BUILDKITE_PIPELINE_SLUG
-    build:
-      branch: docker-command
-  - trigger: $BUILDKITE_PIPELINE_SLUG
-    build:
-      branch: docker-script
-  - trigger: $BUILDKITE_PIPELINE_SLUG
-    build:
-      branch: docker-compose-command
-  - trigger: $BUILDKITE_PIPELINE_SLUG
-    build:
-      branch: docker-compose-script
+  - label: ":github: Import trigger-selected workflow"
+    key: "github-actions-importer"
+    agents:
+      queue: "hosted"
+    timeout_in_minutes: 10
+    plugins:
+      - github-actions#v0.13.0:
+          workflow: "$BUILDKITE_GITHUB_WORKFLOW_PATH"
+          version: "0.35.1"
+          runners:
+            - runs-on: ubuntu-latest
+              queue: "hosted"

@@ -1,0 +1,29 @@
+name: 00 E2E branch first lexical match
+
+on:
+  push:
+    branches:
+      - gha-e2e-base
+
+jobs:
+  evidence:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print non-secret trigger evidence
+        shell: bash
+        run: |
+          printf '%s\n' \
+            "GITHUB_EVENT_NAME=${GITHUB_EVENT_NAME:-}" \
+            "GITHUB_WORKFLOW=${GITHUB_WORKFLOW:-}" \
+            "GITHUB_WORKFLOW_REF=${GITHUB_WORKFLOW_REF:-}" \
+            "GITHUB_WORKFLOW_SHA=${GITHUB_WORKFLOW_SHA:-}" \
+            "GITHUB_REF=${GITHUB_REF:-}" \
+            "GITHUB_SHA=${GITHUB_SHA:-}" \
+            "BUILDKITE_GITHUB_EVENT=${BUILDKITE_GITHUB_EVENT:-}" \
+            "BUILDKITE_GITHUB_ACTION=${BUILDKITE_GITHUB_ACTION:-}" \
+            "BUILDKITE_GITHUB_WORKFLOW_PATH=${BUILDKITE_GITHUB_WORKFLOW_PATH:-}" \
+            "BUILDKITE_COMMIT=${BUILDKITE_COMMIT:-}" \
+            "BUILDKITE_BRANCH=${BUILDKITE_BRANCH:-}" \
+            "BUILDKITE_TAG=${BUILDKITE_TAG:-}" \
+            "BUILDKITE_PULL_REQUEST=${BUILDKITE_PULL_REQUEST:-}" \
+            "BUILDKITE_PULL_REQUEST_BASE_BRANCH=${BUILDKITE_PULL_REQUEST_BASE_BRANCH:-}"

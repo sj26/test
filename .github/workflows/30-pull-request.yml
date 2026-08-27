@@ -1,0 +1,33 @@
+name: 30 E2E pull request
+
+on:
+  pull_request:
+    branches:
+      - gha-e2e-base
+    types:
+      - opened
+      - reopened
+      - synchronize
+
+jobs:
+  evidence:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print non-secret pull request evidence
+        shell: bash
+        run: |
+          printf '%s\n' \
+            "GITHUB_EVENT_NAME=${GITHUB_EVENT_NAME:-}" \
+            "GITHUB_WORKFLOW=${GITHUB_WORKFLOW:-}" \
+            "GITHUB_WORKFLOW_REF=${GITHUB_WORKFLOW_REF:-}" \
+            "GITHUB_WORKFLOW_SHA=${GITHUB_WORKFLOW_SHA:-}" \
+            "GITHUB_REF=${GITHUB_REF:-}" \
+            "GITHUB_SHA=${GITHUB_SHA:-}" \
+            "BUILDKITE_GITHUB_EVENT=${BUILDKITE_GITHUB_EVENT:-}" \
+            "BUILDKITE_GITHUB_ACTION=${BUILDKITE_GITHUB_ACTION:-}" \
+            "BUILDKITE_GITHUB_WORKFLOW_PATH=${BUILDKITE_GITHUB_WORKFLOW_PATH:-}" \
+            "BUILDKITE_COMMIT=${BUILDKITE_COMMIT:-}" \
+            "BUILDKITE_BRANCH=${BUILDKITE_BRANCH:-}" \
+            "BUILDKITE_PULL_REQUEST=${BUILDKITE_PULL_REQUEST:-}" \
+            "BUILDKITE_PULL_REQUEST_BASE_BRANCH=${BUILDKITE_PULL_REQUEST_BASE_BRANCH:-}" \
+            "BUILDKITE_PULL_REQUEST_REPO=${BUILDKITE_PULL_REQUEST_REPO:-}"

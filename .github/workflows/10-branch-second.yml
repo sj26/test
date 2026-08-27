@@ -1,0 +1,22 @@
+name: 10 E2E branch second lexical match
+
+on:
+  push:
+    branches:
+      - gha-e2e-base
+
+jobs:
+  evidence:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Prove this workflow loses lexical selection
+        shell: bash
+        run: |
+          printf '%s\n' \
+            "GITHUB_EVENT_NAME=${GITHUB_EVENT_NAME:-}" \
+            "GITHUB_WORKFLOW=${GITHUB_WORKFLOW:-}" \
+            "GITHUB_WORKFLOW_REF=${GITHUB_WORKFLOW_REF:-}" \
+            "GITHUB_WORKFLOW_SHA=${GITHUB_WORKFLOW_SHA:-}" \
+            "BUILDKITE_GITHUB_EVENT=${BUILDKITE_GITHUB_EVENT:-}" \
+            "BUILDKITE_GITHUB_ACTION=${BUILDKITE_GITHUB_ACTION:-}" \
+            "BUILDKITE_GITHUB_WORKFLOW_PATH=${BUILDKITE_GITHUB_WORKFLOW_PATH:-}"

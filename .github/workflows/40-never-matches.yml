@@ -1,0 +1,12 @@
+name: 40 E2E deliberate no match control
+
+on:
+  push:
+    branches:
+      - gha-e2e-never
+
+jobs:
+  evidence:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "This control workflow should not be selected by the matrix events."
