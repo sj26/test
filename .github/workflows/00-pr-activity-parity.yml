@@ -1,0 +1,22 @@
+name: PR activity parity A18 review_requested
+on:
+  pull_request:
+    types: [review_requested]
+
+permissions: {}
+
+jobs:
+  evidence:
+    name: event evidence
+    runs-on: ubuntu-latest
+    steps:
+      - name: Capture event context
+        shell: bash
+        run: |
+          printf 'PARITY_CASE=%s\n' 'A18'
+          printf 'GITHUB_EVENT_NAME=%s\n' "$GITHUB_EVENT_NAME"
+          printf 'GITHUB_REF=%s\n' "$GITHUB_REF"
+          printf 'GITHUB_SHA=%s\n' "$GITHUB_SHA"
+          printf 'GITHUB_HEAD_REF=%s\n' "$GITHUB_HEAD_REF"
+          printf 'GITHUB_BASE_REF=%s\n' "$GITHUB_BASE_REF"
+          printf 'PULL_REQUEST_ACTION=%s\n' '${{ github.event.action }}'
