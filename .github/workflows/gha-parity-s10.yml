@@ -1,0 +1,17 @@
+name: "GHA parity S10"
+
+on:
+  push:
+  pull_request:
+    types: [opened]
+
+jobs:
+  evidence:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Emit parity evidence
+        shell: bash
+        run: |
+          printf 'PARITY_EVIDENCE case=%s event=%s workflow=%s ref=%s sha=%s head_ref=%s base_ref=%s action=%s\n' \
+            'S10' "$GITHUB_EVENT_NAME" "$GITHUB_WORKFLOW" "$GITHUB_REF" "$GITHUB_SHA" \
+            "$GITHUB_HEAD_REF" "$GITHUB_BASE_REF" '${{ github.event.action }}'
