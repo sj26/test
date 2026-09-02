@@ -6,7 +6,7 @@ steps:
     timeout_in_minutes: 10
     plugins:
       - github-actions#v0.13.0:
-          workflow: "$BUILDKITE_GITHUB_WORKFLOW_PATH"
+          workflow: "$$BUILDKITE_GITHUB_WORKFLOW_PATH"
           version: "0.35.1"
           runners:
             - runs-on: ubuntu-latest
