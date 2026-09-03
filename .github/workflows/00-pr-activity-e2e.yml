@@ -1,0 +1,21 @@
+name: PR activity E2E A05 opened
+on:
+  pull_request:
+    types: [opened]
+
+permissions: {}
+
+jobs:
+  evidence:
+    name: event evidence
+    runs-on: ubuntu-latest
+    steps:
+      - name: Verify event context
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$GITHUB_EVENT_NAME" = pull_request
+          test '${{ github.event.action }}' = 'opened'
+          printf 'E2E_CASE=%s\n' 'A05'
+          printf 'PULL_REQUEST_ACTION=%s\n' '${{ github.event.action }}'
+          printf 'GITHUB_SHA=%s\n' "$GITHUB_SHA"
