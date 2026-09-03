@@ -1,0 +1,21 @@
+name: PR activity E2E A21 auto_merge_disabled
+on:
+  pull_request:
+    types: [auto_merge_disabled]
+
+permissions: {}
+
+jobs:
+  evidence:
+    name: event evidence
+    runs-on: ubuntu-latest
+    steps:
+      - name: Verify event context
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$GITHUB_EVENT_NAME" = pull_request
+          test '${{ github.event.action }}' = 'auto_merge_disabled'
+          printf 'E2E_CASE=%s\n' 'A21'
+          printf 'PULL_REQUEST_ACTION=%s\n' '${{ github.event.action }}'
+          printf 'GITHUB_SHA=%s\n' "$GITHUB_SHA"
