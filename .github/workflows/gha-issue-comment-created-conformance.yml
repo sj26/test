@@ -1,0 +1,17 @@
+name: GHA issue comment created conformance
+
+on:
+  issue_comment:
+    types: [created]
+
+permissions:
+  contents: read
+
+jobs:
+  observe:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Record selected activity
+        env:
+          IS_PULL_REQUEST: ${{ github.event.issue.pull_request != null }}
+        run: printf '%s\n' "$GITHUB_EVENT_NAME:$IS_PULL_REQUEST:$GITHUB_REF:$GITHUB_SHA"

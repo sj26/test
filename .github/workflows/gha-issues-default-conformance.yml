@@ -1,0 +1,30 @@
+name: GHA issues default conformance
+
+on: issues
+
+permissions:
+  contents: read
+
+jobs:
+  observe:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Record event context
+        env:
+          ACTION: ${{ github.event.action }}
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+          REPOSITORY: ${{ github.repository }}
+          WORKFLOW_REF: ${{ github.workflow_ref }}
+          WORKFLOW_SHA: ${{ github.workflow_sha }}
+        run: |
+          jq -cn \
+            --arg event "$GITHUB_EVENT_NAME" \
+            --arg action "$ACTION" \
+            --arg ref "$GITHUB_REF" \
+            --arg sha "$GITHUB_SHA" \
+            --arg workflow "$GITHUB_WORKFLOW" \
+            --arg workflow_ref "$WORKFLOW_REF" \
+            --arg workflow_sha "$WORKFLOW_SHA" \
+            --arg repository "$REPOSITORY" \
+            --arg issue_number "$ISSUE_NUMBER" \
+            '{event: $event, action: $action, ref: $ref, sha: $sha, workflow: $workflow, workflow_ref: $workflow_ref, workflow_sha: $workflow_sha, repository: $repository, issue_number: $issue_number}'
