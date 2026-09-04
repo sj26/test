@@ -1,0 +1,11 @@
+name: Skip instruction parity
+
+on:
+  push:
+    branches: [gha-skip-parity-20260904-024732]
+
+jobs:
+  evidence:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "RUN $GITHUB_SHA"
