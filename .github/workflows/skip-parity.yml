@@ -3,6 +3,7 @@ name: Skip instruction parity
 on:
   push:
     branches: [gha-skip-parity-20260904-024732]
+    tags: [gha-skip-parity-*]
 
 jobs:
   evidence:
