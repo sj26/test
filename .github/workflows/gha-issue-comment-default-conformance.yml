@@ -1,34 +1,34 @@
-name: GHA production e2e 20260908-0337 comment-bare
+name: GHA issue comment default conformance
+
 on: issue_comment
+
 permissions:
   contents: read
+
 jobs:
   observe:
-    if: startsWith(github.event.issue.title, 'GHA production e2e 20260908-0337')
     runs-on: ubuntu-latest
     steps:
-      - name: Allowlisted event evidence
+      - name: Record event context
         env:
+          ACTION: ${{ github.event.action }}
+          COMMENT_ID: ${{ github.event.comment.id }}
+          IS_PULL_REQUEST: ${{ github.event.issue.pull_request != null }}
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+          REPOSITORY: ${{ github.repository }}
           WORKFLOW_REF: ${{ github.workflow_ref }}
           WORKFLOW_SHA: ${{ github.workflow_sha }}
-          EXPRESSION_ACTION: ${{ github.event.action }}
-          EXPRESSION_EVENT: ${{ github.event_name }}
-          EXPRESSION_ISSUE_ID: ${{ github.event.issue.id }}
-          EXPRESSION_COMMENT_ID: ${{ github.event.comment.id }}
-          ISSUE_NUMBER: ${{ github.event.issue.number }}
-          ISSUE_TITLE: ${{ github.event.issue.title }}
-          ISSUE_BODY: ${{ github.event.issue.body }}
-          COMMENT_BODY: ${{ github.event.comment.body }}
-          IS_PULL_REQUEST: ${{ github.event.issue.pull_request != null }}
-          REPOSITORY_ID: ${{ github.event.repository.id }}
-          REPOSITORY: ${{ github.event.repository.full_name }}
-          DEFAULT_BRANCH: ${{ github.event.repository.default_branch }}
         run: |
-          jq -cn '{event: env.GITHUB_EVENT_NAME, expression_event: env.EXPRESSION_EVENT,
-            action: env.EXPRESSION_ACTION, issue_id: env.EXPRESSION_ISSUE_ID, issue_number: env.ISSUE_NUMBER,
-            issue_title: env.ISSUE_TITLE, issue_body: env.ISSUE_BODY, comment_id: env.EXPRESSION_COMMENT_ID,
-            comment_body: env.COMMENT_BODY, is_pull_request: (env.IS_PULL_REQUEST == "true"),
-            repository_id: env.REPOSITORY_ID, repository: env.REPOSITORY, default_branch: env.DEFAULT_BRANCH,
-            ref: env.GITHUB_REF, sha: env.GITHUB_SHA, workflow: env.GITHUB_WORKFLOW,
-            workflow_ref: env.WORKFLOW_REF, workflow_sha: env.WORKFLOW_SHA,
-            event_path_present: (env.GITHUB_EVENT_PATH != null and env.GITHUB_EVENT_PATH != "")}'
+          jq -cn \
+            --arg event "$GITHUB_EVENT_NAME" \
+            --arg action "$ACTION" \
+            --arg ref "$GITHUB_REF" \
+            --arg sha "$GITHUB_SHA" \
+            --arg workflow "$GITHUB_WORKFLOW" \
+            --arg workflow_ref "$WORKFLOW_REF" \
+            --arg workflow_sha "$WORKFLOW_SHA" \
+            --arg repository "$REPOSITORY" \
+            --arg issue_number "$ISSUE_NUMBER" \
+            --arg comment_id "$COMMENT_ID" \
+            --arg is_pull_request "$IS_PULL_REQUEST" \
+            '{event: $event, action: $action, ref: $ref, sha: $sha, workflow: $workflow, workflow_ref: $workflow_ref, workflow_sha: $workflow_sha, repository: $repository, issue_number: $issue_number, comment_id: $comment_id, is_pull_request: ($is_pull_request == "true")}'
