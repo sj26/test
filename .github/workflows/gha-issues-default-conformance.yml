@@ -1,7 +1,7 @@
 name: GHA production e2e 20260908-0337 issues-bare
 on:
   issues:
-    types: [closed]
+    types: [labeled]
 permissions:
   contents: read
 jobs:
