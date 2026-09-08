@@ -1,7 +1,9 @@
-name: GHA production e2e 20260908-0337 issues-explicit
+name: GHA production e2e 20260908-0337 nonmatch
 on:
   issues:
-    types: [opened, edited]
+    types: [labeled]
+  issue_comment:
+    types: [created]
 permissions:
   contents: read
 jobs:

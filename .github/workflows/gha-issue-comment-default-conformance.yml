@@ -1,7 +1,5 @@
 name: GHA production e2e 20260908-0337 comment-bare
-on:
-  issue_comment:
-    types: []
+on: issue_comment
 permissions:
   contents: read
 jobs:
