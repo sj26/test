@@ -1,9 +1,9 @@
 name: GHA independent scalar verification 20260908
 on:
   issues:
-    types: opened
+    types: [opened, edited]
   issue_comment:
-    types: edited
+    types: [created, edited, deleted]
 permissions:
   contents: read
 jobs:
