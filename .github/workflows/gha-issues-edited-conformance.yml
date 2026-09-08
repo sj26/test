@@ -1,15 +1,30 @@
-name: GHA issues edited conformance
-
+name: GHA production e2e 20260908-0337 issues-explicit
 on:
   issues:
-    types: [edited]
-
+    types: opened
 permissions:
   contents: read
-
 jobs:
   observe:
+    if: startsWith(github.event.issue.title, 'GHA production e2e 20260908-0337')
     runs-on: ubuntu-latest
     steps:
-      - name: Record selected activity
-        run: printf '%s\n' "$GITHUB_EVENT_NAME:$GITHUB_REF:$GITHUB_SHA"
+      - name: Allowlisted event evidence
+        env:
+          WORKFLOW_REF: ${{ github.workflow_ref }}
+          WORKFLOW_SHA: ${{ github.workflow_sha }}
+          EXPRESSION_ACTION: ${{ github.event.action }}
+          EXPRESSION_ISSUE_ID: ${{ github.event.issue.id }}
+          EXPRESSION_COMMENT_ID: ${{ github.event.comment.id }}
+        run: |
+          jq -c --arg event "$GITHUB_EVENT_NAME" --arg ref "$GITHUB_REF" --arg sha "$GITHUB_SHA" \
+            --arg workflow "$GITHUB_WORKFLOW" --arg workflow_ref "$WORKFLOW_REF" --arg workflow_sha "$WORKFLOW_SHA" \
+            --arg expression_action "$EXPRESSION_ACTION" --arg expression_issue_id "$EXPRESSION_ISSUE_ID" \
+            --arg expression_comment_id "$EXPRESSION_COMMENT_ID" \
+            '{event: $event, action, issue_id: .issue.id, issue_number: .issue.number,
+              issue_title: .issue.title, issue_body: .issue.body, comment_id: .comment.id, comment_body: .comment.body,
+              is_pull_request: (.issue.pull_request != null), repository_id: .repository.id,
+              repository: .repository.full_name, default_branch: .repository.default_branch,
+              ref: $ref, sha: $sha, workflow: $workflow, workflow_ref: $workflow_ref, workflow_sha: $workflow_sha,
+              expression_action: $expression_action, expression_issue_id: $expression_issue_id,
+              expression_comment_id: $expression_comment_id}' "$GITHUB_EVENT_PATH"
