@@ -1,7 +1,7 @@
 name: GHA production e2e 20260908-0337 comment-explicit
 on:
   issue_comment:
-    types: created
+    types: [created, edited, deleted]
 permissions:
   contents: read
 jobs:
