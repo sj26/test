@@ -1,0 +1,26 @@
+name: PB-3321 bare release corpus parity
+
+# Trigger shape from ycd/dstp .github/workflows/go.yml.
+on: release
+
+permissions:
+  contents: read
+
+jobs:
+  observe:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Record release context
+        env:
+          ACTION: ${{ github.event.action }}
+          RELEASE_ID: ${{ github.event.release.id }}
+          TAG_NAME: ${{ github.event.release.tag_name }}
+        run: |
+          jq -cn \
+            --arg event "$GITHUB_EVENT_NAME" \
+            --arg action "$ACTION" \
+            --arg ref "$GITHUB_REF" \
+            --arg sha "$GITHUB_SHA" \
+            --arg release_id "$RELEASE_ID" \
+            --arg tag_name "$TAG_NAME" \
+            '{event: $event, action: $action, ref: $ref, sha: $sha, release_id: $release_id, tag_name: $tag_name}'

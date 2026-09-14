@@ -1,0 +1,24 @@
+name: PB-3321 empty release types corpus parity
+
+# Trigger and payload shape from ir-engine/ir-engine
+# .github/workflows/publish-gh-container.yml.
+on:
+  release:
+    types: []
+
+permissions:
+  contents: read
+
+jobs:
+  observe:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Record release context
+        env:
+          ACTION: ${{ github.event.action }}
+          RELEASE_ID: ${{ github.event.release.id }}
+          TAG_NAME: ${{ github.event.release.tag_name }}
+        run: |
+          test -n "$RELEASE_ID"
+          test -n "$TAG_NAME"
+          printf '%s\n' "$GITHUB_EVENT_NAME:$ACTION:$TAG_NAME:$GITHUB_REF:$GITHUB_SHA"

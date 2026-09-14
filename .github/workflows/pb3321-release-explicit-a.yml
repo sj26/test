@@ -1,0 +1,24 @@
+name: PB-3321 explicit release types A corpus parity
+
+# Explicit release filtering follows sinaptik-ai/pandas-ai
+# .github/workflows/cd.yml.
+on:
+  release:
+    types: [published, edited, prereleased]
+
+permissions:
+  contents: read
+
+jobs:
+  observe:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Record selected release activity
+        env:
+          ACTION: ${{ github.event.action }}
+        run: |
+          case "$ACTION" in
+            published|edited|prereleased) ;;
+            *) echo "unexpected action: $ACTION" >&2; exit 1 ;;
+          esac
+          printf '%s\n' "$GITHUB_EVENT_NAME:$ACTION:$GITHUB_REF:$GITHUB_SHA"
