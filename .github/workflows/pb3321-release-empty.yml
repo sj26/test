@@ -10,7 +10,18 @@ permissions:
   contents: read
 
 jobs:
+  event-gate:
+    runs-on: ubuntu-latest
+    outputs:
+      selected: ${{ steps.select.outputs.selected }}
+    steps:
+      - id: select
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+        run: test "$EVENT_NAME" = release && echo "selected=true" >> "$GITHUB_OUTPUT"
   observe:
+    needs: event-gate
+    if: ${{ needs.event-gate.outputs.selected == 'true' }}
     runs-on: ubuntu-latest
     steps:
       - name: Record release context
